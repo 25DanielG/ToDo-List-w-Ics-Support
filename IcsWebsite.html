@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+  <meta name = "description" content = "A todo list that is able to sort through tasks from schoology">
+  <meta name = "keywords" content = "HTML, Tutorial, Website">
+  <meta name = "author" content = "Daniel Gergov">
+  <title>ToDo List</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+</head>
+<body>
+  <h3>ToDo List</h3>
+  <input type = "text" placeholder = "Enter new to-do">
+  <input type = "text" placeholder = "Enter description" list = "descList">
+  <input type = "text" placeholder = "Enter the url">
+  <input type = "date">
+  <button id = "addBtn">Add</button>
+  <ul></ul>
+  <form method = "POST" enctype = "multipart/form-data">
+    <input type = "file"/>
+    <script src = "autoIcsCreate.js" charset = "UTF-8"></script>
+  </form>
+  <ul></ul>
+  <table id="todoList">
+    <tr>
+      <td>Checkbox</td>
+      <td>Task</td>
+      <td>Description</td>
+      <td>Link</td>
+      <td>Date</td>
+      <td>Delete</td>
+    </tr>
+  </table>
+  <script src = "manualCreateToDo.js"></script>
+</body>
+</html>
