@@ -5,8 +5,13 @@ function removeEscapeSequences(str) {
     str = str.replace(/\\/g, ''); // Removes all the \'s from a string
     return str;
 }
+function dateCompareToday(D1) { // Simple function to compare dates
+    const date1 = new Date(D1);
+    const date2 = new Date();
+    return (date1 > date2);
+}
 const input = document.querySelector('input[type = "file"]')
-var events = {}, events_i = 0, date, title, url, desc;
+var events = {}, events_i = 0, date, title, url, desc, isAfterToday;
 input.addEventListener('change', function (e) {
     console.log(input.files)
     const reader = new FileReader()
@@ -28,38 +33,40 @@ input.addEventListener('change', function (e) {
                 } else {
                     curDate = curDate.substring(0, 4) + '-' + curDate.substring(4, 6) + '-' + curDate.substring(6, 8); // No time included
                 }
-                events[events_i].date = curDate;
+                if(dateCompareToday(curDate.replace("_", "T"))) isAfterToday = true;
+                else isAfterToday = false;
+                if(isAfterToday)
+                    events[events_i].date = curDate;
             }
             if (lines[i].includes('SUMMARY')) { // Title
                 const [first, ...rest] = lines[i].split(":")
                 var title = rest.join('-');
                 title = removeEscapeSequences(title);
-                events[events_i].title = title;
+                if(isAfterToday)
+                    events[events_i].title = title;
+                title = title.toLowerCase()
             }
             if (lines[i].includes('URL')) { // Link
                 url = lines[i].split(":");
-                events[events_i].url = url[1] + ":" + url[2];
+                if(isAfterToday)
+                    events[events_i].url = url[1] + ":" + url[2];
             }
             if (lines[i].includes('DESCRIPTION')) { // Description
                 const [first, ...rest] = lines[i].split(":")
                 var txt = rest.join(":");
                 txt = removeEscapeSequences(txt);
-                events[events_i].description = txt;
+                if(isAfterToday)
+                    events[events_i].description = txt;
             }
             if (lines[i].includes('END:VEVENT')) {
-                ++events_i;
+                if(isAfterToday)
+                    ++events_i;
             }
         }
         console.log(events);
         console.log("manualCreateToDo.js part of Ics is working");
         var i = 0;
         while (i < events_i) {
-            function dateCompareToday(D1) { // Simple function to compare dates
-                const date1 = new Date(D1);
-                const date2 = new Date();
-                return (date1 > date2);
-            }
-            while(!dateCompareToday(events[i].date.replace("_", "T"))) ++i; // Skip the older ToDo's
             let inputVal = events[i].title;
             let inputVal2 = events[i].description;
             let inputVal3 = events[i].url;
@@ -101,13 +108,25 @@ input.addEventListener('change', function (e) {
             let tdElement6 = document.createElement("td");
             tdElement6.appendChild(spanElem);
             trElement.appendChild(tdElement6);
-            function deleteItem(){
-            trElement.remove();
-            hrElement.remove();
+            function deleteItem() {
+                trElement.remove();
+                hrElement.remove();
+                for(var i = 0; i < events_i; ++i) {
+                    if(events[i].title == inputVal) {
+                        let cnt = events_i;
+                        console.log(events[cnt - 1]);
+                        events[i] = events[cnt - 1];
+                        delete(events[cnt - 1]);
+                        --events_i;
+                        console.log(events);
+                        break;
+                    }
+                }
+                console.log("Deleted element from events");
             }
             function done() {
-            trElement.classList.toggle("del");  
-            hrElement.classList.toggle("del");
+                trElement.classList.toggle("del");
+                hrElement.classList.toggle("del");
             }
             ++i;
         }

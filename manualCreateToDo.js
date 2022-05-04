@@ -33,7 +33,9 @@ function todoMain(){
     // add a new row
     let table = document.getElementById("todoList");
     let trElem = document.createElement("tr");
+    let hrElem = document.createElement("hr");
     table.appendChild(trElem);
+    table.appendChild(hrElement);
     // checkbox cell
     let checkboxElem = document.createElement("input");
     checkboxElem.type = "Checkbox";
@@ -67,9 +69,11 @@ function todoMain(){
     trElem.appendChild(tdElem6);
     function deleteItem(){
       trElem.remove();
+      hrElem.remove();
     }
     function done(){
-      trElem.classList.toggle("strike");      
+      trElem.classList.toggle("del");
+      hrElement.classList.toggle("del");
     }
   }
 }

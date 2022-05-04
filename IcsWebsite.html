@@ -6,33 +6,74 @@
   <meta name = "description" content = "A todo list that is able to sort through tasks from schoology">
   <meta name = "keywords" content = "HTML, Tutorial, Website">
   <meta name = "author" content = "Daniel Gergov">
+  <meta name = "helper" content = "Atharv Goel">
   <title>ToDo List</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 </head>
 <body>
-  <h3>ToDo List</h3>
+  <style>
+    h2 {
+      text-align: center;
+      font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+      font-size: 24px;
+      font-style: normal;
+      font-variant: normal;
+      font-weight: 700;
+      line-height: 26.4px;
+    }
+  </style>
+  <h2>ToDo List</h2>
   <input type = "text" placeholder = "Enter new to-do">
   <input type = "text" placeholder = "Enter description" list = "descList">
   <input type = "text" placeholder = "Enter the url">
   <input type = "date">
   <button id = "addBtn">Add</button>
-  <ul></ul>
+  <pre></pre>
+  <script type = 'text/javascript'>
+    var events = {};
+    var events_i = 0;
+  </script>
   <form method = "POST" enctype = "multipart/form-data">
     <input type = "file"/>
     <script src = "autoIcsCreate.js" charset = "UTF-8"></script>
   </form>
-  <ul></ul>
-  <table id="todoList">
-    <tr>
-      <td>Checkbox</td>
-      <td>Task</td>
-      <td>Description</td>
-      <td>Link</td>
-      <td>Date</td>
-      <td>Delete</td>
-    </tr>
-  </table>
+  <pre></pre>
+  <form>
+    <span>
+      <button type = "button" id = "CycleItems">Show only tests</button>
+      <script src = "cycleItems.js"></script>
+    </span>
+  </form>
+  <pre></pre>
+  <form>
+    <span>
+      <button type = "button" id = "Guide">Guide</button>
+      <script src = "guideButton.js"></script>
+    </span>
+  </form>
+  <pre></pre>
+  <style>
+    div {
+      background-color: lightgrey;
+      width: 1380px;
+      border: 5px solid black;
+      padding: 5px;
+      margin: 10px;
+    }
+  </style>
+  <div>
+    <table id = "todoList">
+      <tr>
+        <td>Checkbox</td>
+        <td>Task</td>
+        <td>Description</td>
+        <td>Link</td>
+        <td>Date</td>
+        <td>Delete</td>
+      </tr>
+    </table>
+  </div>
   <script src = "manualCreateToDo.js"></script>
 </body>
 </html>
